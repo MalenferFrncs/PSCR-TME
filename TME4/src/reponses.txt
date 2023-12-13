@@ -1,0 +1,4 @@
+q2 oui, toutes les oparation d'accés au solde des comptes est protégé par un meme mutex 
+
+q7 non, si on a le thread comptable qui fait un seul parcours des comptes et qu'un compte non encore visité 
+    transfert un somme a un compte deja visité le bilan comptable ne vera pas cette somme
