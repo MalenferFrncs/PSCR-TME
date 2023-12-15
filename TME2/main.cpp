@@ -3,14 +3,29 @@
 #include <regex>
 #include <chrono>
 
+using namespace std ;
+
+
+void ajouteMotVect(std::vector<std::pair<string,int>> &tab, const string &s){
+	for(size_t i = 0; i < tab.size() ; i++){
+		if( tab[i].first==s ){
+			++tab[i].second;
+			return;
+		}
+	}
+	tab.push_back(make_pair(s,1));	//On ne l'a pas trouvé dans le tableau
+}
+
 int main () {
 	using namespace std;
 	using namespace std::chrono;
 
-	ifstream input = ifstream("/tmp/WarAndPeace.txt");
+	ifstream input = ifstream("WarAndPeace.txt");
 
 	auto start = steady_clock::now();
 	cout << "Parsing War and Peace" << endl;
+
+	std::vector<std::pair<string,int>> tab ;
 
 	size_t nombre_lu = 0;
 	// prochain mot lu
@@ -28,6 +43,9 @@ int main () {
 			// on affiche un mot "propre" sur 100
 			cout << nombre_lu << ": "<< word << endl;
 		nombre_lu++;
+
+		ajouteMotVect(tab, word);
+
 	}
 	input.close();
 
@@ -39,6 +57,7 @@ int main () {
               << "ms.\n";
 
     cout << "Found a total of " << nombre_lu << " words." << endl;
+	cout << "Found a total of " << tab.size() << " different words." << endl;
 
     return 0;
 }

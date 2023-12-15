@@ -42,16 +42,20 @@ bool Banque::comptabiliser (int attendu) const {
 	int bilan = 0;
 	int id = 0;
 	for (const auto & compte : comptes) {
-		unique_lock<recursive_mutex> g(*compte.getMutex());
+		compte.getMutex()->lock();
 		if (compte.getSolde() < 0) {
 			cout << "Compte " << id << " en négatif : " << compte.getSolde() << endl;
 		}
 		bilan += compte.getSolde();
 		id++;
 	}
+
+	for (const auto & compte : comptes) {
+		compte.getMutex()->unlock();
+	}
 	if (bilan != attendu) {
 		cout << "Bilan comptable faux : attendu " << attendu << " obtenu : " << bilan << endl;
-	}
+	}else{cout << "Bilan comptable vrais : attendu " << attendu << " obtenu : " << bilan << endl;}
 	return bilan == attendu;
 }
 }

@@ -1,5 +1,6 @@
 # noinst = no install, on peut utiliser bin_PROGRAMS sinon
 noinst_PROGRAMS = tme4
+CXX = g++
 
 INC_DIR = $(top_builddir)/include
 SRC_DIR = $(top_builddir)/src
@@ -16,8 +17,11 @@ AM_LDFLAGS = -pthread
 tme4_SOURCES = Banque.h Banque.cpp Compte.h Compte.cpp main.cpp
 
 
-%.o : %.cpp
+test : Banque.o Compte.o
+    $(CXX) -o test $(AM_CPPFLAGS) Banque.o Compte.o
 
+%.o : %.cpp
+    $(CXX) -c $(AM_LDFLAG) $< 
 
 
 
