@@ -19,8 +19,8 @@ int Compte::getSolde() const  {
 	unique_lock<recursive_mutex> g(m);
 	return solde;
 }
-recursive_mutex Compte::getMutex() const {
-	return m ;
+recursive_mutex *Compte::getMutex() const {
+	return &m ;
 }
 
 // NB : vector exige Copyable, mais mutex ne l'est pas...

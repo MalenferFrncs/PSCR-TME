@@ -16,7 +16,7 @@ AM_LDFLAGS = -pthread
 tme4_SOURCES = Banque.h Banque.cpp Compte.h Compte.cpp main.cpp
 
 
-
+%.o : %.cpp
 
 
 
